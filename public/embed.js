@@ -1,12 +1,15 @@
 /**
  * Lia Chatbot — Embed Widget
  *
- * Inclua este script no site externo:
+ * ── 1. Adicione o script no WordPress (rodapé) ────────────────
  *   <script src="https://SEU-DOMINIO/embed.js" defer></script>
  *
- * Adicione o atributo data-lia-chat em qualquer botão/link:
- *   <a href="#" data-lia-chat>Falar com a Lia</a>
- *   <button data-lia-chat>Agendar Consulta</button>
+ * ── 2. Em cada botão do Elementor, adicione a classe CSS ──────
+ *   Elementor FREE:  Widget Botão > Avançado > Classes CSS → lia-chat-trigger
+ *   Elementor PRO:   Widget Botão > Avançado > Atributos   → data-lia-chat (sem valor)
+ *
+ *   Ou use onclick para abrir manualmente:
+ *   onclick="LiaChat.open(); return false;"
  */
 (function () {
   'use strict';
@@ -162,7 +165,9 @@
   }
 
   function bindButtons() {
-    var triggers = document.querySelectorAll('[data-lia-chat]');
+    // Suporta: atributo data-lia-chat (Elementor Pro / HTML manual)
+    //          classe CSS lia-chat-trigger (Elementor Free — campo "Classes CSS")
+    var triggers = document.querySelectorAll('[data-lia-chat], .lia-chat-trigger');
     triggers.forEach(function (el) {
       // Remove listener anterior para evitar duplicata
       el.removeEventListener('click', handleTrigger);
