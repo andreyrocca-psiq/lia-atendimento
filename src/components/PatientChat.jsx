@@ -159,7 +159,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setUserData((prev) => ({ ...prev, modalidade: option.value }));
     setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `Excelente escolha! Vamos conseguir um horário da sua preferência com o **Dr. Andrey**.\n\nSua trajetória inclui:\n▸ **Dupla especialização**: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da **Câmara dos Deputados** (aprovado em **1º lugar nacional**)\n▸ **Professor Universitário** — UFG e UnB\n▸ Fundador do portal **transtornobipolar.net** e do app **Eixo Bipolar** (monitoramento de humor) para seus pacientes.`,
+      `Excelente escolha! Vamos conseguir um horário da sua preferência com o **Dr. Andrey**.\n\nSua trajetória inclui:\n▸ **Dupla especialização**: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da **Câmara dos Deputados** (aprovado em **1º lugar nacional**)\n▸ Experiência como **professor universitário** (UFG e UnB)\n▸ Fundador do portal **transtornobipolar.net** e do app **Eixo Bipolar** (monitoramento de humor) para seus pacientes.`,
       1400
     );
     await addLiaMessage(
@@ -174,7 +174,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setMessages((prev) => [...prev, { from: 'user', text: '💰 Sim, pode!' }]);
     setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `O valor da consulta inicial é de **R$ 1.100,00** (parcelado em até 2x sem juros), inclui acesso ao **WhatsApp do Dr. Andrey** para suporte individual e não inclui retorno — cada consulta tem duração de pelo menos **60 minutos**.\n\nPodemos prosseguir com o pré-agendamento?`,
+      `💰 **Consulta Inicial — R$ 1.100,00**\n\n▸ Parcelado em até **2x sem juros** no cartão\n▸ Acesso ao **WhatsApp do Dr. Andrey** para suporte individual\n▸ **Nota fiscal** para reembolso no seu convênio médico\n▸ Cada consulta dura pelo menos **60 minutos**\n▸ Não inclui retorno\n\nPodemos prosseguir com o pré-agendamento?`,
       1000
     );
     setStep(STEP.VALOR);
