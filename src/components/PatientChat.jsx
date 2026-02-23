@@ -169,6 +169,17 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setStep(STEP.CONDICOES);
   }
 
+  // ── Pular valor e ir direto para dúvida ───────────────────
+  async function handleOutraDuvida() {
+    setMessages((prev) => [...prev, { from: 'user', text: '🤔 Não, tenho outra dúvida' }]);
+    setUserData((prev) => ({ ...prev, respostaValor: 'duvida' }));
+    setStep(STEP.DUVIDA);
+    await addLiaMessage(
+      'Sem problemas! Descreva sua dúvida para que envie mensagem para nossa equipe.',
+      700
+    );
+  }
+
   // ── Confirmar interesse no valor ──────────────────────────
   async function handleConfirmarValor() {
     setMessages((prev) => [...prev, { from: 'user', text: '💰 Sim, pode!' }]);
@@ -322,14 +333,20 @@ export default function PatientChat({ onClose, isEmbed = false }) {
           </div>
         )}
 
-        {/* Botão confirmar interesse no valor */}
+        {/* Botões: confirmar valor ou ir para dúvida */}
         {!typing && step === STEP.CONDICOES && (
-          <div className="flex animate-message-appear pt-1">
+          <div className="flex flex-col gap-2 animate-message-appear pt-1">
             <button
               onClick={handleConfirmarValor}
-              className="px-5 py-2.5 rounded-xl bg-violet-600/30 border border-violet-500/40 text-slate-200 text-sm hover:bg-violet-600/50 transition-all font-inter"
+              className="px-5 py-3 rounded-xl bg-violet-600/30 border border-violet-500/40 text-slate-200 text-sm hover:bg-violet-600/50 transition-all font-inter"
             >
               💰 Sim, pode!
+            </button>
+            <button
+              onClick={handleOutraDuvida}
+              className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm hover:bg-white/10 transition-all font-inter"
+            >
+              🤔 Não, tenho outra dúvida
             </button>
           </div>
         )}
@@ -400,7 +417,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               step === STEP.DUVIDA ? 'Descreva sua dúvida...' :
               'WhatsApp com DDD...'
             }
-            className="flex-1 bg-white/5 border border-violet-500/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 outline-none focus:border-violet-400/60 focus:bg-white/8 transition-all font-inter"
+            className="flex-1 bg-white/5 border border-violet-500/20 rounded-xl px-4 py-2.5 text-base text-white placeholder-slate-500 outline-none focus:border-violet-400/60 focus:bg-white/8 transition-all font-inter"
             autoComplete={step === STEP.WHATSAPP ? 'tel' : 'off'}
           />
           <button

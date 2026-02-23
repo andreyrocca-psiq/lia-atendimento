@@ -65,14 +65,14 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen bg-black flex flex-col items-center px-4 py-10 overflow-x-hidden">
+    <div className="relative min-h-screen bg-black flex flex-col items-center px-4 py-6 sm:py-10 overflow-x-hidden">
       {/* Canvas animado */}
       <NeuralBackground />
 
       {/* Conteúdo principal */}
-      <main className="relative z-10 flex flex-col items-center w-full max-w-sm gap-8">
+      <main className="relative z-10 flex flex-col items-center w-full max-w-sm gap-5 sm:gap-8">
         {/* ── Header / Perfil ── */}
-        <header className="flex flex-col items-center text-center gap-3 animate-fade-in-down">
+        <header className="flex flex-col items-center text-center gap-2 sm:gap-3 animate-fade-in-down">
           {/* Avatar */}
           <div className="relative">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-600/30 to-purple-900/50 border-2 border-violet-500/50 flex items-center justify-center shadow-lg shadow-violet-900/40">
