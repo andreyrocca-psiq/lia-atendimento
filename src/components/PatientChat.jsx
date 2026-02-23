@@ -271,11 +271,10 @@ export default function PatientChat({ onClose, isEmbed = false }) {
   const chatPanel = (
     <div
       className={`
-        w-full sm:max-w-md flex flex-col bg-gray-950 border border-violet-500/30
-        overflow-hidden shadow-2xl shadow-violet-900/30
+        flex flex-col bg-gray-950 overflow-hidden
         ${isEmbed
-          ? 'h-[100dvh]'
-          : 'rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[620px]'
+          ? 'w-full h-[100dvh] border-0'
+          : 'w-full sm:max-w-md border border-violet-500/30 shadow-2xl shadow-violet-900/30 rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[620px]'
         }
       `}
     >
