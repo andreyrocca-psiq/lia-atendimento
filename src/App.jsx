@@ -131,21 +131,6 @@ export default function App() {
           ))}
         </section>
 
-        {/* ── Bio / Trajetória ── */}
-        <section className="w-full bg-white/3 border border-white/8 rounded-2xl p-4 animate-fade-in-up">
-          <h2 className="text-xs font-orbitron tracking-widest text-violet-400 mb-3 uppercase">
-            Trajetória
-          </h2>
-          <ul className="space-y-2">
-            {DOCTOR.bio.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-slate-400 font-inter">
-                <span className="text-violet-500 mt-0.5 flex-shrink-0">▸</span>
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-
         {/* ── Footer ── */}
         <footer className="text-center text-xs text-slate-600 font-inter pb-2">
           © {new Date().getFullYear()} Dr. Andrey Rocca — Psiquiatra

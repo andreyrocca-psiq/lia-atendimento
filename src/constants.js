@@ -1,9 +1,9 @@
 // ─── Perfil do médico ────────────────────────────────────────
 export const DOCTOR = {
   name: 'Dr. Andrey Rocca',
-  specialty: 'Psiquiatra',
+  specialty: 'Médico Psiquiatra — Consultório Particular',
   crm: 'CRM-DF 32154 | RQE 23030',
-  description: 'Psiquiatra da Câmara dos Deputados · transtornobipolar.net',
+  description: 'Especialista em Ansiedade, Depressão e Transtorno Bipolar',
   icon: '🧠',
   whatsapp: '5561993381313',
 
@@ -18,9 +18,8 @@ export const DOCTOR = {
   ],
 
   locations: [
-    'Presencial — Brasília/DF',
-    'Presencial — Goiânia/GO',
     'Online — Telemedicina para todo o Brasil',
+    'Presencial — Brasília/DF',
   ],
 
   consultaValor: 'R$ 1.100,00',
@@ -37,7 +36,7 @@ export const LINK_BUTTONS = [
   {
     id: 'consulta',
     label: 'Agendar Consulta Particular',
-    subLabel: 'Atendimento Presencial e Online · Brasília e Goiânia',
+    subLabel: 'Atendimento Online para todo o Brasil e Presencial em Brasília',
     url: '#',
     primary: true,
     openChat: true,
@@ -46,7 +45,7 @@ export const LINK_BUTTONS = [
 
 // ─── Mensagem WhatsApp pré-preenchida ────────────────────────
 export function buildWhatsAppLink({ nome, modalidade, whatsapp }) {
-  const texto = `Olá, sou ${nome}. Vim pelo site e finalizei o pré-agendamento com a Lia.\nModalidade: ${modalidade}\nMeu WhatsApp: ${whatsapp}`;
+  const texto = `Olá, sou ${nome}. Vim pelo site e finalizei o pré-agendamento com a Lia.\nModalidade: ${modalidade}\nMeu WhatsApp: ${whatsapp}\nEstou ciente do valor (R$ 1.100,00).`;
   return `https://api.whatsapp.com/send?phone=${DOCTOR.whatsapp}&text=${encodeURIComponent(texto)}`;
 }
 

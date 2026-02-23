@@ -13,9 +13,8 @@ const STEP = {
 
 // ─── Opções de modalidade ────────────────────────────────────
 const MODALIDADE_OPTIONS = [
-  { id: 'brasilia', label: '🏥 Presencial — Brasília', value: 'Presencial — Brasília/DF' },
-  { id: 'goiania', label: '🏥 Presencial — Goiânia', value: 'Presencial — Goiânia/GO' },
   { id: 'online', label: '💻 Online (Telemedicina)', value: 'Online — Telemedicina' },
+  { id: 'brasilia', label: '🏥 Presencial — Brasília', value: 'Presencial — Brasília/DF' },
 ];
 
 // ─── Componente de bolha de mensagem ─────────────────────────
@@ -145,8 +144,8 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setUserData((prev) => ({ ...prev, modalidade: option.value }));
     setStep(STEP.CONDICOES);
     await addLiaMessage(
-      `Ótima escolha! Veja o que está incluso:\n\n✅ Consulta completa com o Dr. Andrey Rocca\n✅ Acesso ao WhatsApp do Dr. Andrey durante o acompanhamento\n💳 Valor: R$ 1.100,00 (à vista ou 2x sem juros)\n⚠️  Não inclui consulta de retorno\n\nPodemos prosseguir com o pré-agendamento?`,
-      1000
+      `Excelente escolha! Vamos conseguir um horário da sua preferência com o Dr. Andrey.\n\nSua trajetória inclui:\n▸ Dupla especialização: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da Câmara dos Deputados (aprovado em 1º lugar nacional)\n▸ Professor Universitário — UFG e UnB\n▸ Especialista em Ansiedade, Depressão e Bipolaridade — fundador do portal transtornobipolar.net e do app Eixo Bipolar (monitoramento de humor) para seus pacientes.\n\nO valor do investimento é de R$ 1.100,00 (parcelado em até 2x sem juros), inclui acesso ao WhatsApp do Dr. Andrey para suporte individual e não inclui retorno — cada consulta tem duração de pelo menos 60 minutos.\n\nPodemos prosseguir com o pré-agendamento?`,
+      1200
     );
   }
 
