@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 const PARTICLE_COUNT = 60;
 const CONNECTION_DISTANCE = 120;
-const PARTICLE_COLOR = 'rgba(139, 92, 246, 0.7)';
+const PARTICLE_COLOR = 'rgba(59, 130, 246, 0.7)';
 
 function randomBetween(min, max) {
   return Math.random() * (max - min) + min;
@@ -59,7 +59,7 @@ export default function NeuralBackground() {
           if (dist < CONNECTION_DISTANCE) {
             const alpha = (1 - dist / CONNECTION_DISTANCE) * 0.4;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);

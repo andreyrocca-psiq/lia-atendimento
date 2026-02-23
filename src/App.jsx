@@ -75,8 +75,8 @@ export default function App() {
         <header className="flex flex-col items-center text-center gap-2 sm:gap-3 animate-fade-in-down">
           {/* Avatar */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-600/30 to-purple-900/50 border-2 border-violet-500/50 flex items-center justify-center shadow-lg shadow-violet-900/40">
-              <Brain className="w-12 h-12 text-violet-400" />
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600/30 to-blue-900/50 border-2 border-blue-500/50 flex items-center justify-center shadow-lg shadow-blue-900/40">
+              <Brain className="w-12 h-12 text-blue-400" />
             </div>
             {/* Indicador online */}
             <span
@@ -86,12 +86,12 @@ export default function App() {
           </div>
 
           {/* Nome com gradiente */}
-          <h1 className="text-2xl sm:text-3xl font-bold font-exo bg-gradient-to-r from-white via-purple-100 to-slate-300 bg-clip-text text-transparent leading-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold font-exo bg-gradient-to-r from-white via-blue-100 to-slate-300 bg-clip-text text-transparent leading-tight">
             {DOCTOR.name}
           </h1>
 
           {/* Badge CRM */}
-          <span className="font-orbitron text-xs tracking-widest text-violet-400 border border-violet-500/40 rounded-full px-3 py-1 bg-violet-900/20">
+          <span className="font-orbitron text-xs tracking-widest text-blue-400 border border-blue-500/40 rounded-full px-3 py-1 bg-blue-900/20">
             {DOCTOR.crm}
           </span>
 
@@ -117,7 +117,7 @@ export default function App() {
         </header>
 
         {/* ── Divider ── */}
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
 
         {/* ── Botões ── */}
         <section className="flex flex-col items-center gap-3 w-full" aria-label="Links de agendamento">

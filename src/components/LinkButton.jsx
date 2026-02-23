@@ -47,7 +47,7 @@ export default function LinkButton({ button, loading, onClick }) {
           relative w-full group flex items-center gap-4 px-5 py-4 rounded-2xl
           border transition-all duration-300 text-left
           ${button.primary
-            ? 'bg-gradient-to-r from-violet-600/20 to-purple-600/20 border-violet-500/50 hover:border-violet-400 hover:from-violet-600/30 hover:to-purple-600/30 hover:shadow-[0_0_24px_rgba(139,92,246,0.35)]'
+            ? 'bg-gradient-to-r from-blue-600/20 to-blue-700/20 border-blue-500/50 hover:border-blue-400 hover:from-blue-600/30 hover:to-blue-700/30 hover:shadow-[0_0_24px_rgba(37,99,235,0.45)]'
             : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'
           }
           ${isLoading ? 'opacity-80 cursor-not-allowed' : 'cursor-pointer'}
@@ -58,7 +58,7 @@ export default function LinkButton({ button, loading, onClick }) {
           className={`
             flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center
             ${button.primary
-              ? 'bg-violet-600/30 text-violet-300'
+              ? 'bg-blue-600/30 text-blue-300'
               : 'bg-white/10 text-slate-300'
             }
           `}
@@ -85,7 +85,7 @@ export default function LinkButton({ button, loading, onClick }) {
         {/* Seta */}
         <svg
           className={`w-4 h-4 flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1 ${
-            button.primary ? 'text-violet-400' : 'text-slate-500'
+            button.primary ? 'text-blue-400' : 'text-slate-500'
           }`}
           viewBox="0 0 24 24"
           fill="none"

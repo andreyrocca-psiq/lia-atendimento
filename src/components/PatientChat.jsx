@@ -25,7 +25,7 @@ function parseInline(text) {
   const parts = text.split(/\*\*(.*?)\*\*/g);
   return parts.map((part, i) =>
     i % 2 === 1
-      ? <strong key={i} className="text-violet-300 font-semibold">{part}</strong>
+      ? <strong key={i} className="text-blue-300 font-semibold">{part}</strong>
       : part
   );
 }
@@ -39,8 +39,8 @@ function Bubble({ from, children }) {
         className={`
           max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed font-inter
           ${isLia
-            ? 'bg-violet-900/40 border border-violet-500/30 text-slate-100 rounded-tl-sm'
-            : 'bg-violet-600/70 text-white rounded-tr-sm'
+            ? 'bg-blue-900/40 border border-blue-500/30 text-slate-100 rounded-tl-sm'
+            : 'bg-blue-600/70 text-white rounded-tr-sm'
           }
         `}
       >
@@ -54,12 +54,12 @@ function Bubble({ from, children }) {
 function TypingIndicator() {
   return (
     <div className="flex justify-start animate-message-appear">
-      <div className="bg-violet-900/40 border border-violet-500/30 px-4 py-3 rounded-2xl rounded-tl-sm">
+      <div className="bg-blue-900/40 border border-blue-500/30 px-4 py-3 rounded-2xl rounded-tl-sm">
         <div className="flex gap-1 items-center h-4">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
-              className="w-1.5 h-1.5 rounded-full bg-violet-400 animate-bounce"
+              className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-bounce"
               style={{ animationDelay: `${i * 0.15}s` }}
             />
           ))}
@@ -274,19 +274,19 @@ export default function PatientChat({ onClose, isEmbed = false }) {
         flex flex-col bg-gray-950 overflow-hidden
         ${isEmbed
           ? 'w-full h-[100dvh] border-0'
-          : 'w-full sm:max-w-md border border-violet-500/30 shadow-2xl shadow-violet-900/30 rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[620px]'
+          : 'w-full sm:max-w-md border border-blue-500/30 shadow-2xl shadow-blue-900/30 rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[620px]'
         }
       `}
     >
       {/* ── Header ── */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-violet-500/20 bg-black/40 flex-shrink-0">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-blue-500/20 bg-black/40 flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-violet-600/30 border border-violet-500/40 flex items-center justify-center">
-            <Brain className="w-5 h-5 text-violet-400" />
+          <div className="w-9 h-9 rounded-full bg-blue-600/30 border border-blue-500/40 flex items-center justify-center">
+            <Brain className="w-5 h-5 text-blue-400" />
           </div>
           <div>
             <p className="text-sm font-semibold text-white font-exo">Lia</p>
-            <p className="text-xs text-violet-400 font-inter">Assistente do Dr. Andrey Rocca</p>
+            <p className="text-xs text-blue-400 font-inter">Assistente do Dr. Andrey Rocca</p>
           </div>
         </div>
         {!isEmbed && onClose && (
@@ -324,7 +324,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               <button
                 key={opt.id}
                 onClick={() => handleModalidade(opt)}
-                className="text-left px-4 py-2.5 rounded-xl bg-violet-900/30 border border-violet-500/30 text-slate-200 text-sm hover:bg-violet-800/40 hover:border-violet-400/50 transition-all font-inter"
+                className="text-left px-4 py-2.5 rounded-xl bg-blue-900/30 border border-blue-500/30 text-slate-200 text-sm hover:bg-blue-800/40 hover:border-blue-400/50 transition-all font-inter"
               >
                 {opt.label}
               </button>
@@ -337,7 +337,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
           <div className="flex flex-col gap-2 animate-message-appear pt-1">
             <button
               onClick={handleConfirmarValor}
-              className="px-5 py-3 rounded-xl bg-violet-600/30 border border-violet-500/40 text-slate-200 text-sm hover:bg-violet-600/50 transition-all font-inter"
+              className="px-5 py-3 rounded-xl bg-blue-600/30 border border-blue-500/40 text-slate-200 text-sm hover:bg-blue-600/50 transition-all font-inter"
             >
               💰 Sim, pode!
             </button>
@@ -355,7 +355,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
           <div className="flex gap-2 animate-message-appear pt-1">
             <button
               onClick={() => handleRespostaValor('sim')}
-              className="flex-1 px-3 py-2.5 rounded-xl bg-violet-600/30 border border-violet-500/40 text-slate-200 text-sm hover:bg-violet-600/50 transition-all font-inter"
+              className="flex-1 px-3 py-2.5 rounded-xl bg-blue-600/30 border border-blue-500/40 text-slate-200 text-sm hover:bg-blue-600/50 transition-all font-inter"
             >
               ✅ Sim, quero agendar
             </button>
@@ -404,7 +404,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
             step === STEP.DUVIDA ? handleDuvidaSubmit :
             handleWhatsAppSubmit
           }
-          className="flex items-center gap-2 px-4 py-3 border-t border-violet-500/20 bg-black/30 flex-shrink-0"
+          className="flex items-center gap-2 px-4 py-3 border-t border-blue-500/20 bg-black/30 flex-shrink-0"
         >
           <input
             ref={inputRef}
@@ -416,13 +416,13 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               step === STEP.DUVIDA ? 'Descreva sua dúvida...' :
               'WhatsApp com DDD...'
             }
-            className="flex-1 bg-white/5 border border-violet-500/20 rounded-xl px-4 py-2.5 text-base text-white placeholder-slate-500 outline-none focus:border-violet-400/60 focus:bg-white/8 transition-all font-inter"
+            className="flex-1 bg-white/5 border border-blue-500/20 rounded-xl px-4 py-2.5 text-base text-white placeholder-slate-500 outline-none focus:border-blue-400/60 focus:bg-white/8 transition-all font-inter"
             autoComplete={step === STEP.WHATSAPP ? 'tel' : 'off'}
           />
           <button
             type="submit"
             disabled={!inputValue.trim()}
-            className="w-10 h-10 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0"
+            className="w-10 h-10 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all flex-shrink-0"
             aria-label="Enviar"
           >
             <svg viewBox="0 0 24 24" className="w-4 h-4 text-white" stroke="currentColor" strokeWidth="2" fill="none">
