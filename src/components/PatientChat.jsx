@@ -6,16 +6,28 @@ import { buildWhatsAppLink, GOOGLE_SHEETS_URL } from '../constants';
 const STEP = {
   NOME: 0,
   MODALIDADE: 1,
-  CONDICOES: 2,
-  WHATSAPP: 3,
-  FINALIZADO: 4,
+  CURRICULO: 2,  // estado de transição — nenhum botão aparece
+  CONDICOES: 3,  // botão "Sim, pode!" aparece
+  VALOR: 4,      // botões "Sim, quero agendar" / "Tenho uma dúvida"
+  WHATSAPP: 5,
+  FINALIZADO: 6,
 };
 
 // ─── Opções de modalidade ────────────────────────────────────
 const MODALIDADE_OPTIONS = [
-  { id: 'online', label: '💻 Online (Telemedicina)', value: 'Online — Telemedicina' },
-  { id: 'brasilia', label: '🏥 Presencial — Brasília', value: 'Presencial — Brasília/DF' },
+  { id: 'online',   label: '💻 Online (Telemedicina)', value: 'Online — Telemedicina'    },
+  { id: 'brasilia', label: '🏥 Presencial — Brasília',  value: 'Presencial — Brasília/DF' },
 ];
+
+// ─── Parser de negrito inline (**texto** → <strong>) ─────────
+function parseInline(text) {
+  const parts = text.split(/\*\*(.*?)\*\*/g);
+  return parts.map((part, i) =>
+    i % 2 === 1
+      ? <strong key={i} className="text-violet-300 font-semibold">{part}</strong>
+      : part
+  );
+}
 
 // ─── Componente de bolha de mensagem ─────────────────────────
 function Bubble({ from, children }) {
@@ -103,13 +115,13 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     });
   }, []);
 
-  // ── Mensagem de boas-vindas (etapa 0) ─────────────────────
+  // ── Mensagem de boas-vindas ────────────────────────────────
   useEffect(() => {
     if (initialized.current) return;
     initialized.current = true;
     async function welcome() {
       await addLiaMessage(
-        'Olá! Sou a Lia 🧠, assistente virtual do Dr. Andrey Rocca.\nVou agilizar o seu pré-agendamento. Para começar, qual é o seu nome completo?',
+        'Olá! Sou a Lia, assistente virtual do **Dr. Andrey Rocca** 🧠.\nVou agilizar o seu pré-agendamento. Para começar, qual é o seu nome completo?',
         800
       );
     }
@@ -133,23 +145,41 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setUserData((prev) => ({ ...prev, nome }));
     setStep(STEP.MODALIDADE);
     await addLiaMessage(
-      `Prazer, ${nome}! O Dr. Andrey atende presencialmente em Brasília e Goiânia, e online para todo o Brasil.\n\nQual modalidade você prefere?`,
+      `Prazer, ${nome}! O Dr. Andrey atende presencialmente em Brasília e online para todo o Brasil.\n\nQual modalidade você prefere?`,
       900
     );
   }
 
   // ── Selecionar modalidade ─────────────────────────────────
+  // Envia 2 mensagens em sequência usando CURRICULO como estado
+  // de transição (nenhum botão aparece durante o envio).
   async function handleModalidade(option) {
     setMessages((prev) => [...prev, { from: 'user', text: option.label }]);
     setUserData((prev) => ({ ...prev, modalidade: option.value }));
-    setStep(STEP.CONDICOES);
+    setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `Excelente escolha! Vamos conseguir um horário da sua preferência com o Dr. Andrey.\n\nSua trajetória inclui:\n▸ Dupla especialização: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da Câmara dos Deputados (aprovado em 1º lugar nacional)\n▸ Professor Universitário — UFG e UnB\n▸ Especialista em Ansiedade, Depressão e Bipolaridade — fundador do portal transtornobipolar.net e do app Eixo Bipolar (monitoramento de humor) para seus pacientes.\n\nO valor do investimento é de R$ 1.100,00 (parcelado em até 2x sem juros), inclui acesso ao WhatsApp do Dr. Andrey para suporte individual e não inclui retorno — cada consulta tem duração de pelo menos 60 minutos.\n\nPodemos prosseguir com o pré-agendamento?`,
-      1200
+      `Excelente escolha! Vamos conseguir um horário da sua preferência com o **Dr. Andrey**.\n\nSua trajetória inclui:\n▸ **Dupla especialização**: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da **Câmara dos Deputados** (aprovado em **1º lugar nacional**)\n▸ **Professor Universitário** — UFG e UnB\n▸ Fundador do portal **transtornobipolar.net** e do app **Eixo Bipolar** (monitoramento de humor) para seus pacientes.`,
+      1400
     );
+    await addLiaMessage(
+      'Posso te passar o valor do investimento para acompanhamento especializado com o **Dr. Andrey**?',
+      900
+    );
+    setStep(STEP.CONDICOES);
   }
 
-  // ── Resposta sobre valor ──────────────────────────────────
+  // ── Confirmar interesse no valor ──────────────────────────
+  async function handleConfirmarValor() {
+    setMessages((prev) => [...prev, { from: 'user', text: '💰 Sim, pode!' }]);
+    setStep(STEP.CURRICULO);
+    await addLiaMessage(
+      `O valor da consulta inicial é de **R$ 1.100,00** (parcelado em até 2x sem juros), inclui acesso ao **WhatsApp do Dr. Andrey** para suporte individual e não inclui retorno — cada consulta tem duração de pelo menos **60 minutos**.\n\nPodemos prosseguir com o pré-agendamento?`,
+      1000
+    );
+    setStep(STEP.VALOR);
+  }
+
+  // ── Resposta sobre agendamento ────────────────────────────
   async function handleRespostaValor(resposta) {
     setMessages((prev) => [
       ...prev,
@@ -186,7 +216,6 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     });
     setWaLink(link);
 
-    // Fire-and-forget: avança imediatamente, sem bloquear no await
     sendToSheets({
       Nome: finalData.nome,
       Modalidade: finalData.modalidade,
@@ -210,7 +239,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
         overflow-hidden shadow-2xl shadow-violet-900/30
         ${isEmbed
           ? 'h-[100dvh]'
-          : 'rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[580px]'
+          : 'rounded-t-3xl sm:rounded-3xl h-[100dvh] sm:h-[620px]'
         }
       `}
     >
@@ -244,7 +273,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
           <Bubble key={i} from={msg.from}>
             {msg.text.split('\n').map((line, j, arr) => (
               <span key={j}>
-                {line}
+                {parseInline(line)}
                 {j < arr.length - 1 && <br />}
               </span>
             ))}
@@ -268,8 +297,20 @@ export default function PatientChat({ onClose, isEmbed = false }) {
           </div>
         )}
 
-        {/* Botões de confirmação de valor */}
+        {/* Botão confirmar interesse no valor */}
         {!typing && step === STEP.CONDICOES && (
+          <div className="flex animate-message-appear pt-1">
+            <button
+              onClick={handleConfirmarValor}
+              className="px-5 py-2.5 rounded-xl bg-violet-600/30 border border-violet-500/40 text-slate-200 text-sm hover:bg-violet-600/50 transition-all font-inter"
+            >
+              💰 Sim, pode!
+            </button>
+          </div>
+        )}
+
+        {/* Botões de confirmação de agendamento */}
+        {!typing && step === STEP.VALOR && (
           <div className="flex gap-2 animate-message-appear pt-1">
             <button
               onClick={() => handleRespostaValor('sim')}
