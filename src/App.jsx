@@ -1,40 +1,58 @@
 import { useState, useEffect } from 'react';
+import { Brain } from 'lucide-react';
 import NeuralBackground from './components/NeuralBackground';
 import LinkButton from './components/LinkButton';
 import PatientChat from './components/PatientChat';
 import { DOCTOR, LINK_BUTTONS } from './constants';
 
-// ─── Ícone de localização ────────────────────────────────────
+// ─── Ícone de localização ─────────────────────────────────────
 function PinIcon() {
   return (
-    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 inline-block mr-1" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      viewBox="0 0 24 24"
+      className="w-3.5 h-3.5 inline-block mr-1"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
   );
 }
 
-// ─── App ─────────────────────────────────────────────────────
+// ─── App ──────────────────────────────────────────────────────
 export default function App() {
-  const [activeModal, setActiveModal] = useState(null); // null | 'patient'
-  const [loadingId, setLoadingId] = useState(null);     // null | button.id
+  // Modo embed: ?embed=true → renderiza só o chat (para iframe no site)
+  const isEmbed = new URLSearchParams(window.location.search).get('embed') === 'true';
 
-  // Bloquear scroll quando modal aberto
+  const [activeModal, setActiveModal] = useState(null);
+  const [loadingId, setLoadingId] = useState(null);
+
+  // Bloquear scroll quando modal aberto (somente fora do modo embed)
   useEffect(() => {
+    if (isEmbed) return;
     if (activeModal) {
       document.body.classList.add('modal-open');
     } else {
       document.body.classList.remove('modal-open');
     }
     return () => document.body.classList.remove('modal-open');
-  }, [activeModal]);
+  }, [activeModal, isEmbed]);
+
+  // ── Modo embed: exibe apenas o chat, sem a página de links ──
+  if (isEmbed) {
+    return <PatientChat isEmbed />;
+  }
 
   function handleButtonClick(button) {
     if (!button.openChat) {
       window.open(button.url, '_blank', 'noopener,noreferrer');
       return;
     }
-    // Loading de 600ms antes de abrir o chat
     setLoadingId(button.id);
     setTimeout(() => {
       setLoadingId(null);
@@ -52,19 +70,19 @@ export default function App() {
       <NeuralBackground />
 
       {/* Conteúdo principal */}
-      <main
-        className="relative z-10 flex flex-col items-center w-full max-w-sm gap-8"
-        style={{ zIndex: 1 }}
-      >
+      <main className="relative z-10 flex flex-col items-center w-full max-w-sm gap-8">
         {/* ── Header / Perfil ── */}
         <header className="flex flex-col items-center text-center gap-3 animate-fade-in-down">
           {/* Avatar */}
           <div className="relative">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-600/30 to-purple-900/50 border-2 border-violet-500/50 flex items-center justify-center text-4xl shadow-lg shadow-violet-900/40">
-              🧠
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-violet-600/30 to-purple-900/50 border-2 border-violet-500/50 flex items-center justify-center shadow-lg shadow-violet-900/40">
+              <Brain className="w-12 h-12 text-violet-400" />
             </div>
             {/* Indicador online */}
-            <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-black" aria-label="Online" />
+            <span
+              className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-black"
+              aria-label="Online"
+            />
           </div>
 
           {/* Nome com gradiente */}
@@ -102,10 +120,7 @@ export default function App() {
         <div className="w-full h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
 
         {/* ── Botões ── */}
-        <section
-          className="flex flex-col items-center gap-3 w-full"
-          aria-label="Links de agendamento"
-        >
+        <section className="flex flex-col items-center gap-3 w-full" aria-label="Links de agendamento">
           {LINK_BUTTONS.map((btn) => (
             <LinkButton
               key={btn.id}
