@@ -4,12 +4,11 @@
  * ── 1. Adicione o script no WordPress (rodapé) ────────────────
  *   <script src="https://SEU-DOMINIO/embed.js" defer></script>
  *
- * ── 2. Em cada botão do Elementor, adicione a classe CSS ──────
- *   Elementor FREE:  Widget Botão > Avançado > Classes CSS → lia-chat-trigger
- *   Elementor PRO:   Widget Botão > Avançado > Atributos   → data-lia-chat (sem valor)
- *
- *   Ou use onclick para abrir manualmente:
- *   onclick="LiaChat.open(); return false;"
+ * ── 2. No botão do Elementor, escolha UMA das opções ─────────
+ *   MAIS FÁCIL  → Widget Botão > Link → #lia-chat
+ *   FREE        → Widget Botão > Avançado > Classes CSS → lia-chat-trigger
+ *   PRO         → Widget Botão > Avançado > Atributos   → data-lia-chat (sem valor)
+ *   HTML widget → <a href="#lia-chat">Falar com a Lia</a>
  */
 (function () {
   'use strict';
@@ -165,15 +164,17 @@
   }
 
   function bindButtons() {
-    // Suporta: atributo data-lia-chat (Elementor Pro / HTML manual)
-    //          classe CSS lia-chat-trigger (Elementor Free — campo "Classes CSS")
-    var triggers = document.querySelectorAll('[data-lia-chat], .lia-chat-trigger');
+    // Suporta:
+    //   [data-lia-chat]    — Elementor Pro / HTML manual (atributo)
+    //   .lia-chat-trigger  — Elementor Free (campo "Classes CSS" no widget)
+    //   href="#lia-chat"   — Elementor qualquer versão (campo Link do widget Botão)
+    var triggers = document.querySelectorAll(
+      '[data-lia-chat], .lia-chat-trigger, a[href="#lia-chat"], a[href$="/#lia-chat"]'
+    );
     triggers.forEach(function (el) {
-      // Remove listener anterior para evitar duplicata
       el.removeEventListener('click', handleTrigger);
       el.addEventListener('click', handleTrigger);
 
-      // Garante que links com href="#" não naveguem no mobile
       if (el.tagName === 'A') {
         el.removeEventListener('touchend', handleTrigger);
         el.addEventListener('touchend', handleTrigger);
@@ -181,12 +182,32 @@
     });
   }
 
+  // Abre via hash na URL (ex: alguém navegar direto para /#lia-chat)
+  function checkHash() {
+    if (window.location.hash === '#lia-chat') {
+      openModal();
+      // Limpa o hash sem recarregar a página
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }
+
   // ── Inicialização ─────────────────────────────────────────
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', bindButtons);
+    document.addEventListener('DOMContentLoaded', function () {
+      bindButtons();
+      checkHash();
+    });
   } else {
     bindButtons();
+    checkHash();
   }
+
+  window.addEventListener('hashchange', function () {
+    if (window.location.hash === '#lia-chat') {
+      openModal();
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  });
 
   // Suporte a conteúdo carregado dinamicamente (ex: page builders)
   if (window.MutationObserver) {
