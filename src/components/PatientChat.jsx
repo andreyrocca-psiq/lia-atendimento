@@ -289,7 +289,17 @@ export default function PatientChat({ onClose, isEmbed = false }) {
             <p className="text-xs text-blue-400 font-inter">Assistente do Dr. Andrey Rocca</p>
           </div>
         </div>
-        {!isEmbed && onClose && (
+        {isEmbed ? (
+          <button
+            onClick={() => window.parent.postMessage('lia:fechar', '*')}
+            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
+            aria-label="Fechar chat"
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" stroke="currentColor" strokeWidth="2" fill="none">
+              <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" />
+            </svg>
+          </button>
+        ) : onClose && (
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors"
