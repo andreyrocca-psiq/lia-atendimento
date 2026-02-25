@@ -159,7 +159,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setUserData((prev) => ({ ...prev, modalidade: option.value }));
     setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `Excelente escolha! Vamos conseguir um horário da sua preferência com o **Dr. Andrey**.\n\nSua trajetória inclui:\n▸ **Dupla especialização**: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da **Câmara dos Deputados** (aprovado em **1º lugar nacional**)\n▸ Experiência como **professor universitário** (UFG e UnB)\n▸ Fundador do portal **transtornobipolar.net** e do app **Eixo Bipolar** (monitoramento de humor) para seus pacientes.`,
+      `Excelente escolha! Vamos conseguir um horário da sua preferência com o **Dr. Andrey**.\n\nSua trajetória inclui:\n▸ **Dupla especialização**: Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiás e Terapia Comportamental — PUC-RS\n▸ Psiquiatra da **Câmara dos Deputados** (aprovado em **1º lugar nacional**)\n▸ Experiência como **professor universitário** (UFG e UnB)\n▸ Fundador do portal **transtornobipolar.net** e do app **Eixo Bipolar** (monitoramento de humor) para seus pacientes.`,
       1400
     );
     await addLiaMessage(
