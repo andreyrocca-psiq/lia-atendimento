@@ -32,6 +32,33 @@ export default function App() {
   const [activeModal, setActiveModal] = useState(null);
   const [loadingId, setLoadingId] = useState(null);
 
+  // ── Abrir chat via hash #liachat ou função global window.openLiaChat() ──
+  useEffect(() => {
+    if (isEmbed) return;
+
+    function openChatFromHash() {
+      if (window.location.hash === '#liachat') {
+        setActiveModal('patient');
+        // Limpa o hash sem recarregar a página
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    }
+
+    // Verifica no carregamento inicial
+    openChatFromHash();
+
+    // Ouve mudanças de hash (ex: links href="#liachat" na mesma página)
+    window.addEventListener('hashchange', openChatFromHash);
+
+    // Expõe função global para onclick no HTML externo: onclick="window.openLiaChat()"
+    window.openLiaChat = () => setActiveModal('patient');
+
+    return () => {
+      window.removeEventListener('hashchange', openChatFromHash);
+      delete window.openLiaChat;
+    };
+  }, [isEmbed]);
+
   // Bloquear scroll quando modal aberto (somente fora do modo embed)
   useEffect(() => {
     if (isEmbed) return;
