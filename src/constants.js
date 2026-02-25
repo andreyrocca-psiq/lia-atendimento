@@ -8,7 +8,7 @@ export const DOCTOR = {
   whatsapp: '5561993381313',
 
   bio: [
-    'Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiânia',
+    'Residência em Psiquiatria — UFG / Hospital das Clínicas de Goiás',
     'Residência em Terapia Comportamental — PUC-RS',
     'Psiquiatra da Câmara dos Deputados (aprovado em 1º lugar nacional)',
     'Supervisor de residentes — UFG e Universidade de Brasil',
