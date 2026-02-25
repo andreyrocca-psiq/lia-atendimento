@@ -185,7 +185,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setMessages((prev) => [...prev, { from: 'user', text: '💰 Sim, pode!' }]);
     setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `💰 **Consulta Completa — R$ 1.100,00**\nÀ vista (Pix/cartão) ou **2x de R$ 550** sem juros\n\n▸ **60 minutos** dedicados exclusivamente a você — sem pressa\n▸ **WhatsApp direto** com Dr. Andrey durante todo o acompanhamento\n▸ **Nota fiscal** para reembolso no seu convênio médico\n▸ Consulta independente e completa — retorno não incluído\n\nPodemos prosseguir com o pré-agendamento?`,
+      `💰 **Consulta Completa — R$ 1.100,00**\nÀ vista (Pix/cartão) ou **2x de R$ 550** sem juros\n\n▸ **60 minutos** dedicados exclusivamente a você — sem pressa\n▸ **WhatsApp direto** com Dr. Andrey durante todo o acompanhamento\n▸ **Nota fiscal para reembolso** no seu convênio médico\n▸ Consulta independente e completa — retorno não incluído\n\nPodemos prosseguir com o pré-agendamento?`,
       1000
     );
     setStep(STEP.VALOR);
