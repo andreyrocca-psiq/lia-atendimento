@@ -1,8 +1,8 @@
 /**
  * Lia Chatbot — Embed Widget
  *
- * ── 1. Adicione o script no WordPress (rodapé) ────────────────
- *   <script src="https://SEU-DOMINIO/embed.js" defer></script>
+ * ── 1. Adicione o script no Custom Code do site (rodapé) ─────
+ *   <script src="https://lia.drandreyrocca.com.br/embed.js" defer></script>
  *
  * ── 2. No botão do Elementor, escolha UMA das opções ─────────
  *   MAIS FÁCIL  → Widget Botão > Link → #lia-chat
