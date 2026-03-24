@@ -214,7 +214,7 @@
   function isTrigger(el) {
     if (!el || !el.matches) return false;
     return el.matches(
-      '[data-lia-chat], .lia-chat-trigger, a[href="#lia-chat"], a[href$="/#lia-chat"]'
+      '[data-lia-chat], .lia-chat-trigger, .btnlia, .btn-lia, a[href="#lia-chat"], a[href$="/#lia-chat"]'
     );
   }
 
@@ -255,6 +255,16 @@
     if (window.location.hash === '#lia-chat') {
       openModal();
       history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  });
+
+  // ── Integração GTM: escuta postMessage do iframe e empurra ao dataLayer ──
+  // Dispara quando o usuário clica em "Agendar pelo WhatsApp" dentro da Lia.
+  // Permite que tags GTM usem o evento customizado "clique_wpp_lia" como gatilho.
+  window.addEventListener('message', function (ev) {
+    if (ev.data === 'clique_wpp_lia') {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'clique_wpp_lia' });
     }
   });
 
