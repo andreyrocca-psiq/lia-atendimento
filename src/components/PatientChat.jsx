@@ -386,7 +386,14 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-all animate-pulse hover:animate-none font-inter shadow-lg shadow-green-900/40"
-              onClick={() => window.parent.postMessage('clique_wpp_lia', '*')}
+              onClick={() => {
+                // Dispara conversão Google Ads diretamente do iframe
+                if (typeof window.gtag === 'function') {
+                  window.gtag('event', 'conversion', { send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o' });
+                }
+                // Mantém postMessage como fallback para o GTM do site pai
+                window.parent.postMessage('clique_wpp_lia', '*');
+              }}
             >
               {userData.respostaValor === 'duvida' ? 'Enviar dúvida pelo WhatsApp' : 'Agendar pelo WhatsApp'}
             </a>
