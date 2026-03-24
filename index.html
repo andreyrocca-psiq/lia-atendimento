@@ -22,5 +22,28 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Listener nativo (fora do React) para capturar clique no botão WhatsApp -->
+    <script>
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href*="api.whatsapp.com"], a[href*="wa.me"]');
+        if (link) {
+          // Dispara conversão Google Ads diretamente
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'conversion', {
+              send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o'
+            });
+          }
+          // Envia postMessage para o site pai (GTM no WordPress)
+          try {
+            if (window.parent !== window) {
+              window.parent.postMessage('clique_wpp_lia', '*');
+            }
+            if (window.top !== window) {
+              window.top.postMessage('clique_wpp_lia', '*');
+            }
+          } catch (err) {}
+        }
+      }, true); // useCapture=true para pegar o evento ANTES de qualquer handler
+    </script>
   </body>
 </html>
