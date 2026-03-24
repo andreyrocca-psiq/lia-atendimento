@@ -387,19 +387,22 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full px-5 py-3.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-sm transition-all animate-pulse hover:animate-none font-inter shadow-lg shadow-green-900/40"
               onClick={() => {
-                console.log('[Lia] botão WhatsApp clicado');
-                // Dispara conversão Google Ads diretamente do iframe
+                // Dispara conversão Google Ads
                 if (typeof window.gtag === 'function') {
                   window.gtag('event', 'conversion', { send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o' });
                 }
-                // Envia postMessage para o pai e para o topo
+                // Empurra evento direto no dataLayer do pai (funciona se mesmo domínio)
                 try {
-                  window.parent.postMessage('clique_wpp_lia', '*');
-                  window.top.postMessage('clique_wpp_lia', '*');
-                  console.log('[Lia] postMessage enviado');
-                } catch (err) {
-                  console.error('[Lia] erro no postMessage:', err);
-                }
+                  var parentDL = (window.parent !== window) ? window.parent.dataLayer : null;
+                  var topDL = (window.top !== window) ? window.top.dataLayer : null;
+                  if (topDL) { topDL.push({ event: 'clique_wpp_lia' }); }
+                  else if (parentDL) { parentDL.push({ event: 'clique_wpp_lia' }); }
+                } catch (e) {}
+                // Fallback: postMessage
+                try {
+                  if (window.parent !== window) window.parent.postMessage('clique_wpp_lia', '*');
+                  if (window.top !== window) window.top.postMessage('clique_wpp_lia', '*');
+                } catch (e) {}
               }}
             >
               {userData.respostaValor === 'duvida' ? 'Enviar dúvida pelo WhatsApp' : 'Agendar pelo WhatsApp'}
