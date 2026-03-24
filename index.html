@@ -33,17 +33,18 @@
               send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o'
             });
           }
-          // Envia postMessage para o site pai (GTM no WordPress)
+          // Empurra evento direto no dataLayer do pai (mesmo domínio)
           try {
-            if (window.parent !== window) {
-              window.parent.postMessage('clique_wpp_lia', '*');
-            }
-            if (window.top !== window) {
-              window.top.postMessage('clique_wpp_lia', '*');
-            }
-          } catch (err) {}
+            var dl = (window.top !== window && window.top.dataLayer) || (window.parent !== window && window.parent.dataLayer);
+            if (dl) dl.push({ event: 'clique_wpp_lia' });
+          } catch (e) {}
+          // Fallback: postMessage (cross-origin)
+          try {
+            if (window.parent !== window) window.parent.postMessage('clique_wpp_lia', '*');
+            if (window.top !== window) window.top.postMessage('clique_wpp_lia', '*');
+          } catch (e) {}
         }
-      }, true); // useCapture=true para pegar o evento ANTES de qualquer handler
+      }, true);
     </script>
   </body>
 </html>
