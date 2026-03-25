@@ -7,23 +7,14 @@
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Dr. Andrey Rocca — Psiquiatra. Agende sua consulta particular presencial em Brasília/DF ou online para todo o Brasil." />
     <title>Dr. Andrey Rocca — Psiquiatra</title>
-    <!-- Google Ads conversion tracking (fired directly from Lia iframe) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11005110590"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-11005110590');
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="./assets/index-DaQSIEvC.js"></script>
+    <script type="module" crossorigin src="./assets/index-Bn5GMAWh.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-9lLZ3eoZ.css">
   </head>
   <body>
     <div id="root"></div>
-    <!-- Listener nativo (fora do React) para capturar clique no botão WhatsApp -->
     <script>
       var _liaTracking = false;
       document.addEventListener('click', function(e) {
@@ -32,14 +23,9 @@
         if (link) {
           _liaTracking = true;
           setTimeout(function() { _liaTracking = false; }, 2000);
-          if (typeof window.gtag === 'function') {
-            window.gtag('event', 'conversion', {
-              send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o'
-            });
-          }
           try {
-            if (window.parent !== window) window.parent.postMessage('clique_wpp_lia', '*');
-            if (window.top !== window) window.top.postMessage('clique_wpp_lia', '*');
+            var dest = (window.top !== window) ? window.top : (window.parent !== window ? window.parent : null);
+            if (dest) dest.postMessage('clique_wpp_lia', '*');
           } catch (err) {}
         }
       }, true);
