@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Dr. Andrey Rocca — Psiquiatra. Agende sua consulta particular presencial em Brasília/DF ou online para todo o Brasil." />
+    <title>Dr. Andrey Rocca — Psiquiatra</title>
+    <!-- Google Ads conversion tracking (fired directly from Lia iframe) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11005110590"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-11005110590');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/assets/index-DaQSIEvC.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-9lLZ3eoZ.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Listener nativo (fora do React) para capturar clique no botão WhatsApp -->
+    <script>
+      document.addEventListener('click', function(e) {
+        var link = e.target.closest('a[href*="api.whatsapp.com"], a[href*="wa.me"]');
+        if (link) {
+          // Dispara conversão Google Ads diretamente
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'conversion', {
+              send_to: 'AW-11005110590/czv5COGfuv0aEL7S0v8o'
+            });
+          }
+          // Envia postMessage para o site pai (GTM no WordPress)
+          try {
+            if (window.parent !== window) {
+              window.parent.postMessage('clique_wpp_lia', '*');
+            }
+            if (window.top !== window) {
+              window.top.postMessage('clique_wpp_lia', '*');
+            }
+          } catch (err) {}
+        }
+      }, true); // useCapture=true para pegar o evento ANTES de qualquer handler
+    </script>
+  </body>
+</html>
