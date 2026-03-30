@@ -45,7 +45,7 @@ export const LINK_BUTTONS = [
 
 // ─── Mensagem WhatsApp pré-preenchida (agendamento) ──────────
 export function buildWhatsAppLink({ nome, modalidade, whatsapp }) {
-  const texto = `Olá, sou ${nome}. Vim pelo site e finalizei o pré-agendamento com a Lia.\nModalidade: ${modalidade}\nMeu WhatsApp: ${whatsapp}\nEstou ciente do valor (R$ 1.100,00).`;
+  const texto = `Olá, sou ${nome}. Vim pelo site e quero agendar uma consulta com Dr. Andrey.\n\nModalidade: ${modalidade}\n\nMeu WhatsApp: ${whatsapp}\n\nEstou ciente do valor (R$ 1.100,00).`;
   return `https://api.whatsapp.com/send?phone=${DOCTOR.whatsapp}&text=${encodeURIComponent(texto)}`;
 }
 

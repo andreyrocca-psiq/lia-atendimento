@@ -12,6 +12,7 @@ const STEP = {
   WHATSAPP: 5,
   DUVIDA: 6,     // caminho alternativo: coleta texto da dúvida
   FINALIZADO: 7,
+  RECUSADO: 8,   // usuário não tem interesse no atendimento particular
 };
 
 // ─── Opções de modalidade ────────────────────────────────────
@@ -169,14 +170,13 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setStep(STEP.CONDICOES);
   }
 
-  // ── Pular valor e ir direto para dúvida ───────────────────
+  // ── Usuário não tem interesse no atendimento particular ───
   async function handleOutraDuvida() {
-    setMessages((prev) => [...prev, { from: 'user', text: '🤔 Não, tenho outra dúvida' }]);
-    setUserData((prev) => ({ ...prev, respostaValor: 'duvida' }));
-    setStep(STEP.DUVIDA);
+    setMessages((prev) => [...prev, { from: 'user', text: '🤔 Não, esse atendimento especializado particular não faz sentido pra mim' }]);
+    setStep(STEP.RECUSADO);
     await addLiaMessage(
-      'Sem problemas! Descreva sua dúvida para que envie mensagem para nossa equipe.',
-      700
+      'Tudo bem, entendo! Mesmo assim, o Dr. Andrey criou um portal gratuito com conteúdo especializado sobre transtorno bipolar — incluindo livro digital e testes de rastreio — disponível para qualquer pessoa, independentemente de fazer acompanhamento com ele. 💙',
+      900
     );
   }
 
@@ -185,7 +185,7 @@ export default function PatientChat({ onClose, isEmbed = false }) {
     setMessages((prev) => [...prev, { from: 'user', text: '💰 Sim, pode!' }]);
     setStep(STEP.CURRICULO);
     await addLiaMessage(
-      `💰 **Consulta Completa — R$ 1.100,00**\nÀ vista (Pix/cartão) ou **2x de R$ 550** sem juros\n\n▸ **60 minutos** dedicados exclusivamente a você — sem pressa\n▸ **WhatsApp direto** com Dr. Andrey durante todo o acompanhamento\n▸ **Nota fiscal para reembolso** no seu convênio médico\n▸ Consulta independente e completa — retorno não incluído\n\nPodemos prosseguir com o pré-agendamento?`,
+      `💰 **Consulta completa — R$ 1.100,00**\nÀ vista (Pix/cartão) ou **2x de R$ 550** sem juros\n\n▸ **WhatsApp direto** com Dr. Andrey durante todo o acompanhamento, com suporte individualizado\n▸ **Reembolso no seu convênio médico**, via nota fiscal\n▸ Consulta independente e completa, onde iremos estruturar diagnóstico e tratamento inicial conforme protocolo do Dr. Andrey — retorno não incluído\n\nPodemos prosseguir com o pré-agendamento?`,
       1000
     );
     setStep(STEP.VALOR);
@@ -355,8 +355,22 @@ export default function PatientChat({ onClose, isEmbed = false }) {
               onClick={handleOutraDuvida}
               className="px-5 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-300 text-sm hover:bg-white/10 transition-all font-inter"
             >
-              🤔 Não, tenho outra dúvida
+              🤔 Não, esse atendimento especializado particular não faz sentido pra mim
             </button>
+          </div>
+        )}
+
+        {/* Link para portal — step RECUSADO */}
+        {!typing && step === STEP.RECUSADO && (
+          <div className="animate-message-appear pt-1">
+            <a
+              href="https://transtornobipolar.net/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-blue-600/20 border border-blue-500/30 text-slate-200 text-sm hover:bg-blue-600/40 transition-all font-inter"
+            >
+              🌐 Acessar portal transtornobipolar.net
+            </a>
           </div>
         )}
 
